@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    hx8347d.h
   * @author  MCD Application Team
-  * @version V1.1.1
-  * @date    24-November-2014
   * @brief   This file contains all the functions prototypes for the hx8347d.c
   *          driver.
   ******************************************************************************
@@ -11,50 +9,33 @@
   *
   * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __HX8347D_H
-#define __HX8347D_H
+#ifndef HX8347D_H
+#define HX8347D_H
 
 #ifdef __cplusplus
  extern "C" {
-#endif 
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "../Common/lcd.h"
 
 /** @addtogroup BSP
   * @{
-  */ 
+  */
 
 /** @addtogroup Components
   * @{
-  */ 
-  
+  */
+
 /** @addtogroup HX8347D
   * @{
   */
@@ -62,28 +43,28 @@
 /** @defgroup HX8347D_Exported_Types
   * @{
   */
-   
+
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup HX8347D_Exported_Constants
   * @{
   */
-/** 
-  * @brief  HX8347D ID  
-  */  
+/**
+  * @brief  HX8347D ID
+  */
 #define  HX8347D_ID    0x0047
-   
-/** 
-  * @brief  HX8347D Size  
-  */  
+
+/**
+  * @brief  HX8347D Size
+  */
 #define  HX8347D_LCD_PIXEL_WIDTH    ((uint16_t)320)
 #define  HX8347D_LCD_PIXEL_HEIGHT   ((uint16_t)240)
-   
-/** 
-  * @brief  HX8347D Registers  
-  */ 
+
+/**
+  * @brief  HX8347D Registers
+  */
 #define LCD_REG_0             0x00
 #define LCD_REG_1             0x01
 #define LCD_REG_2             0x02
@@ -219,10 +200,10 @@
 /**
   * @}
   */
-  
+
 /** @defgroup HX8347D_Exported_Functions
   * @{
-  */ 
+  */
 void     hx8347d_Init(void);
 uint16_t hx8347d_ReadID(void);
 void     hx8347d_WriteReg(uint8_t LCDReg, uint16_t LCDRegValue);
@@ -255,24 +236,24 @@ uint16_t LCD_IO_ReadData(uint16_t Reg);
 void     LCD_Delay (uint32_t delay);
 /**
   * @}
-  */ 
-      
+  */
+
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __HX8347D_H */
-
-/**
-  * @}
-  */ 
-
-/**
-  * @}
-  */ 
+#endif /* HX8347D_H */
 
 /**
   * @}
   */
-  
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

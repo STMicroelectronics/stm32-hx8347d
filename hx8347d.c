@@ -2,35 +2,16 @@
   ******************************************************************************
   * @file    hx8347d.c
   * @author  MCD Application Team
-  * @version V1.1.1
-  * @date    24-November-2014
   * @brief   This file includes the LCD driver for HX8347D LCD.
   ******************************************************************************
   * @attention
   *
   * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -40,11 +21,11 @@
 
 /** @addtogroup BSP
 * @{
-*/ 
+*/
 
 /** @addtogroup Components
 * @{
-*/ 
+*/
 
 /** @addtogroup HX8347D
 * @brief     This file provides a set of functions needed to drive the
@@ -54,11 +35,11 @@
 
 /** @defgroup HX8347D_Private_TypesDefinitions
 * @{
-*/ 
+*/
 
 /**
 * @}
-*/ 
+*/
 
 /** @defgroup HX8347D_Private_Defines
 * @{
@@ -66,7 +47,7 @@
 
 /**
 * @}
-*/ 
+*/
 
 /** @defgroup HX8347D_Private_Macros
 * @{
@@ -74,12 +55,12 @@
 
 /**
 * @}
-*/  
+*/
 
 /** @defgroup HX8347D_Private_Variables
 * @{
-*/ 
-LCD_DrvTypeDef   hx8347d_drv = 
+*/
+LCD_DrvTypeDef   hx8347d_drv =
 {
   hx8347d_Init,
   hx8347d_ReadID,
@@ -93,7 +74,7 @@ LCD_DrvTypeDef   hx8347d_drv =
   hx8347d_DrawVLine,
   hx8347d_GetLcdPixelWidth,
   hx8347d_GetLcdPixelHeight,
-  hx8347d_DrawBitmap,  
+  hx8347d_DrawBitmap,
 };
 
 static uint8_t Is_hx8347d_Initialized = 0;
@@ -102,7 +83,7 @@ static uint16_t ArrayRGB[320] = {0};
 
 /**
 * @}
-*/ 
+*/
 
 /** @defgroup HX8347D_Private_FunctionPrototypes
 * @{
@@ -110,11 +91,11 @@ static uint16_t ArrayRGB[320] = {0};
 
 /**
 * @}
-*/ 
+*/
 
 /** @defgroup HX8347D_Private_Functions
 * @{
-*/   
+*/
 
 /**
 * @brief  Initialise the HX8347D LCD Component.
@@ -122,13 +103,13 @@ static uint16_t ArrayRGB[320] = {0};
 * @retval None
 */
 void hx8347d_Init(void)
-{  
+{
   if(Is_hx8347d_Initialized == 0)
   {
     Is_hx8347d_Initialized = 1;
     /* Initialise HX8347D low level bus layer --------------------------------*/
     LCD_IO_Init();
-    
+
     /* Driving ability setting */
     hx8347d_WriteReg(LCD_REG_234, 0x00);
     hx8347d_WriteReg(LCD_REG_235, 0x20);
@@ -139,7 +120,7 @@ void hx8347d_Init(void)
     hx8347d_WriteReg(LCD_REG_241, 0x01);
     hx8347d_WriteReg(LCD_REG_242, 0x10);
     hx8347d_WriteReg(LCD_REG_39,  0xA3);
-    
+
     /* Adjust the Gamma Curve */
     hx8347d_WriteReg(LCD_REG_64, 0x01);
     hx8347d_WriteReg(LCD_REG_65, 0x00);
@@ -168,7 +149,7 @@ void hx8347d_Init(void)
     hx8347d_WriteReg(LCD_REG_91, 0x0C);
     hx8347d_WriteReg(LCD_REG_92, 0x1D);
     hx8347d_WriteReg(LCD_REG_93, 0xCC);
-    
+
     /* Power voltage setting */
     hx8347d_WriteReg(LCD_REG_27, 0x1B);
     hx8347d_WriteReg(LCD_REG_26, 0x01);
@@ -176,7 +157,7 @@ void hx8347d_Init(void)
     hx8347d_WriteReg(LCD_REG_37, 0x57);
     /*****VCOM offset ****/
     hx8347d_WriteReg(LCD_REG_35, 0x86);
-    
+
     /* Power on setting up flow */
     hx8347d_WriteReg(LCD_REG_24, 0x36); /* Display frame rate = 70Hz RADJ = '0110' */
     hx8347d_WriteReg(LCD_REG_25, 0x01); /* OSC_EN = 1 */
@@ -184,18 +165,18 @@ void hx8347d_Init(void)
     hx8347d_WriteReg(LCD_REG_29, 0x06); /* AP[2:0] = 111 */
     hx8347d_WriteReg(LCD_REG_31,0x90); /* GAS=1, VOMG=00, PON=1, DK=0, XDK=0, DVDH_TRI=0, STB=0*/
     hx8347d_WriteReg(LCD_REG_39, 1); /* REF = 1 */
-    
+
     LCD_Delay(10);
     /* 262k/65k color selection */
     hx8347d_WriteReg(LCD_REG_23, 0x05); /* default 0x06 262k color,  0x05 65k color */
     /* SET PANEL */
     hx8347d_WriteReg(LCD_REG_54, 0x09); /* SS_PANEL = 1, GS_PANEL = 0,REV_PANEL = 0, BGR_PANEL = 1 */
-    
+
     /* Display ON flow */
     hx8347d_WriteReg(LCD_REG_40, 0x38); /* GON=1, DTE=1, D=10 */
     LCD_Delay(60);
     hx8347d_WriteReg(LCD_REG_40, 0x3C); /* GON=1, DTE=1, D=11 */
-    
+
     /* Set GRAM Area - Partial Display Control */
     hx8347d_WriteReg(LCD_REG_1, 0x00); /* DP_STB = 0, DP_STB_S = 0, SCROLL = 0, */
     hx8347d_WriteReg(LCD_REG_2, 0x00); /* Column address start 2 */
@@ -208,9 +189,9 @@ void hx8347d_Init(void)
     hx8347d_WriteReg(LCD_REG_9, 0xEF); /* Row address end 1 */
     hx8347d_WriteReg(LCD_REG_22, 0xE0); /* Memory access control: MY = 1, MX = 0, MV = 1, ML = 0 */
   }
-  /* Set the Cursor */ 
+  /* Set the Cursor */
   hx8347d_SetCursor(0, 0);
-  
+
   /* Prepare to write GRAM */
   LCD_IO_WriteReg(LCD_REG_34);
 }
@@ -232,7 +213,7 @@ void hx8347d_DisplayOn(void)
   hx8347d_WriteReg(LCD_REG_23, 0x05); /* default 0x06 262k color,  0x05 65k color */
   /* SET PANEL */
   hx8347d_WriteReg(LCD_REG_54, 0x09); /* SS_PANEL = 1, GS_PANEL = 0,REV_PANEL = 0, BGR_PANEL = 1 */
-  
+
   /* Display On */
   hx8347d_WriteReg(LCD_REG_40, 0x38);
   LCD_Delay(60);
@@ -253,7 +234,7 @@ void hx8347d_DisplayOff(void)
   hx8347d_WriteReg(LCD_REG_28, 0x0000); /* AP[2:0] = 111 */
   hx8347d_WriteReg(LCD_REG_31, 0x0000); /* GAS=1, VOMG=00, PON=1, DK=0, XDK=0, DVDH_TRI=0, STB=0*/
   hx8347d_WriteReg(LCD_REG_54, 0x0000); /* SS_PANEL = 1, GS_PANEL = 0,REV_PANEL = 0, BGR_PANEL = 1 */
-  
+
   /* Display Off */
   hx8347d_WriteReg(LCD_REG_40, 0x38);
   LCD_Delay(60);
@@ -283,14 +264,14 @@ uint16_t hx8347d_GetLcdPixelHeight(void)
 /**
 * @brief  Get the HX8347D ID.
 * @param  None
-* @retval The HX8347D ID 
+* @retval The HX8347D ID
 */
 uint16_t hx8347d_ReadID(void)
 {
   if(Is_hx8347d_Initialized == 0)
   {
     hx8347d_Init();
-    Is_hx8347d_Initialized = 1;    
+    Is_hx8347d_Initialized = 1;
   }
   return (hx8347d_ReadReg(0x00));
 }
@@ -310,7 +291,7 @@ void hx8347d_SetCursor(uint16_t Xpos, uint16_t Ypos)
 }
 
 /**
-* @brief  Write pixel.   
+* @brief  Write pixel.
 * @param  Xpos: specifies the X position.
 * @param  Ypos: specifies the Y position.
 * @param  RGBCode: the RGB pixel color
@@ -320,7 +301,7 @@ void hx8347d_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode)
 {
   /* Set Cursor */
   hx8347d_SetCursor(Xpos, Ypos);
-  
+
   /* Prepare to write GRAM */
   LCD_IO_WriteReg(LCD_REG_34);
 
@@ -337,10 +318,10 @@ uint16_t hx8347d_ReadPixel(uint16_t Xpos, uint16_t Ypos)
 {
   /* Set Cursor */
   hx8347d_SetCursor(Xpos, Ypos);
-  
+
   /* Dummy read */
   LCD_IO_ReadData(LCD_REG_34);
-  
+
   /* Read 16-bit Reg */
   return (LCD_IO_ReadData(LCD_REG_34));
 }
@@ -354,7 +335,7 @@ uint16_t hx8347d_ReadPixel(uint16_t Xpos, uint16_t Ypos)
 void hx8347d_WriteReg(uint8_t LCDReg, uint16_t LCDRegValue)
 {
   LCD_IO_WriteReg(LCDReg);
-  
+
   /* Write 16-bit GRAM Reg */
   LCD_IO_WriteMultipleData((uint8_t*)&LCDRegValue, 2);
 }
@@ -383,15 +364,15 @@ void hx8347d_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint
   /* Horizontal GRAM Start Address */
   hx8347d_WriteReg(LCD_REG_6, (Xpos) >> 8); /* SP */
   hx8347d_WriteReg(LCD_REG_7, (Xpos) & 0xFF); /* SP */
-  
+
   /* Horizontal GRAM End Address */
   hx8347d_WriteReg(LCD_REG_8, (Xpos + Height - 1) >> 8); /* EP */
   hx8347d_WriteReg(LCD_REG_9, (Xpos + Height - 1) & 0xFF); /* EP */
-  
+
   /* Vertical GRAM Start Address */
   hx8347d_WriteReg(LCD_REG_2, (Ypos) >> 8); /* SC */
   hx8347d_WriteReg(LCD_REG_3, (Ypos) & 0xFF); /* SC */
-  
+
   /* Vertical GRAM End Address */
   hx8347d_WriteReg(LCD_REG_4, (Ypos + Width - 1) >> 8); /* EC */
   hx8347d_WriteReg(LCD_REG_5, (Ypos + Width - 1) & 0xFF); /* EC */
@@ -399,55 +380,55 @@ void hx8347d_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint
 
 /**
 * @brief  Draw vertical line.
-* @param  RGBCode: Specifies the RGB color   
+* @param  RGBCode: Specifies the RGB color
 * @param  Xpos:     specifies the X position.
 * @param  Ypos:     specifies the Y position.
-* @param  Length:   specifies the Line length.  
+* @param  Length:   specifies the Line length.
 * @retval None
 */
 void hx8347d_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length)
 {
   uint32_t i = 0;
-  
+
   /* Set Cursor */
-  hx8347d_SetCursor(Xpos, Ypos); 
-  
+  hx8347d_SetCursor(Xpos, Ypos);
+
   /* Prepare to write GRAM */
   LCD_IO_WriteReg(LCD_REG_34);
-  
-  
+
+
   /* Sent a complete line */
   for(i = 0; i < Length; i++)
   {
     ArrayRGB[i] = RGBCode;
-  }  
+  }
 
   LCD_IO_WriteMultipleData((uint8_t*)&ArrayRGB[0], Length * 2);
 }
 
 /**
 * @brief  Draw vertical line.
-* @param  RGBCode: Specifies the RGB color    
+* @param  RGBCode: Specifies the RGB color
 * @param  Xpos:     specifies the X position.
 * @param  Ypos:     specifies the Y position.
-* @param  Length:   specifies the Line length.  
+* @param  Length:   specifies the Line length.
 * @retval None
 */
 void hx8347d_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length)
 {
   uint16_t counter = 0;
-  
+
   /* Set Cursor */
   hx8347d_SetCursor(Xpos, Ypos);
   /* Prepare to write GRAM */
   LCD_IO_WriteReg(LCD_REG_34);
-  
+
   /* Fill a complete vertical line */
   for(counter = 0; counter < Length; counter++)
   {
     ArrayRGB[counter] = RGBCode;
   }
-  
+
   /* Write 16-bit GRAM Reg */
   LCD_IO_WriteMultipleData((uint8_t*)&ArrayRGB[0], Length * 2);
 }
@@ -460,28 +441,26 @@ void hx8347d_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t 
 void hx8347d_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp)
 {
   uint32_t index = 0, size = 0;
-  
+
   /* Read bitmap size */
-  size = *(volatile uint16_t *) (pbmp + 2);
-  size |= (*(volatile uint16_t *) (pbmp + 4)) << 16;
+  size = pbmp[2] + (pbmp[3] << 8) + (pbmp[4] << 16) + (pbmp[5] << 24);
   /* Get bitmap data address offset */
-  index = *(volatile uint16_t *) (pbmp + 10);
-  index |= (*(volatile uint16_t *) (pbmp + 12)) << 16;
+  index = pbmp[10] + (pbmp[11] << 8) + (pbmp[12] << 16) + (pbmp[13] << 24);
   size = (size - index)/2;
   pbmp += index;
-  
+
   /* Set GRAM write direction and BGR = 0 */
   /* Memory access control: MY = 1, MX = 0, MV = 1, ML = 0 */
   hx8347d_WriteReg(LCD_REG_22, 0xA0);
-  
+
   /* Set Cursor */
-  hx8347d_SetCursor(Xpos, Ypos);  
-  
+  hx8347d_SetCursor(Xpos, Ypos);
+
   /* Prepare to write GRAM */
   LCD_IO_WriteReg(LCD_REG_34);
-  
+
   LCD_IO_WriteMultipleData((uint8_t*)pbmp, size*2);
-  
+
   /* Set GRAM write direction and BGR = 0 */
   /* Memory access control: MY = 1, MX = 1, MV = 1, ML = 0 */
   hx8347d_WriteReg(LCD_REG_22, 0xE0);
@@ -489,15 +468,15 @@ void hx8347d_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp)
 
 /**
 * @}
-*/ 
+*/
 
 /**
 * @}
-*/ 
+*/
 
 /**
 * @}
-*/ 
+*/
 
 /**
 * @}
