@@ -6,12 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2018 STMicroelectronics</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -166,7 +166,7 @@ int32_t HX8347D_RegisterBusIO(HX8347D_Object_t *pObj, HX8347D_IO_t *pIO)
 */
 int32_t HX8347D_Init(HX8347D_Object_t *pObj, uint32_t ColorCoding, uint32_t Orientation)
 {
-  int32_t ret;
+  int32_t ret = HX8347D_OK;
   uint8_t pdata;
 
   if((pObj == NULL) || (Orientation > HX8347D_ORIENTATION_LANDSCAPE_ROT180))
@@ -176,7 +176,6 @@ int32_t HX8347D_Init(HX8347D_Object_t *pObj, uint32_t ColorCoding, uint32_t Orie
   else if (pObj->IsInitialized == 0)
   {
     pObj->IsInitialized = 1;
-    ret = HX8347D_OK;
     /* Driving ability setting */
     pdata = 0x00;
     ret += hx8347d_write_reg(&pObj->Ctx, HX8347D_POWER_CTRL_INTERNAL_USED1, &pdata, 1);
@@ -992,4 +991,3 @@ static int32_t HX8347D_IO_Delay(HX8347D_Object_t *pObj, uint32_t Delay)
 * @}
 */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,6 +1,6 @@
 # BSP HX8347D Component
 
-![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/stm32-hx8347d.svg?color=brightgreen)
+![tag](https://img.shields.io/badge/tag-v2.0.2-brightgreen.svg)
 
 ## Overview
 
